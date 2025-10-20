@@ -54,9 +54,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "drf_spectacular",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -89,12 +91,24 @@ WSGI_APPLICATION = "string_analyzer.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('PGDATABASE_NAME'),
+            'USER': env('PGDATABASE_USER'),
+            'PASSWORD': env('PGDATABASE_PASSWORD'),
+            'HOST': env('PGDATABASE_HOST'),
+            'PORT': env('PGDATABASE_PORT'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -147,3 +161,11 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API for analyzing strings, including length, palindrome check, unique characters, word count, and character frequency.',
     'VERSION': '1.0.0',
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+# ]
