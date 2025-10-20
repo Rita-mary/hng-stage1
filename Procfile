@@ -1,4 +1,2 @@
-
-
-web: gunicorn hng_stage1.wsgi --log-file -
-web: python manage.py migrate && gunicorn hng_stage1.wsgi 
+web: gunicorn string_analyzer.wsgi --log-file -
+web: python manage.py migrate && gunicorn string_analyzer.wsgi
