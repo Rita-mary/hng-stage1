@@ -13,7 +13,7 @@ class NaturalLanguageConflictError(Exception):
 def analyze_string(input_string: str) -> Dict[str, Any]:
 
     raw = input_string
-    normalised = raw.replace(" ", "").lower()
+    normalised = raw.strip().replace(" ", "").lower()
     length = len(raw.strip())
     is_palindrome = normalised == normalised[::-1]
     unique_characters = len(set(normalised))
@@ -24,7 +24,7 @@ def analyze_string(input_string: str) -> Dict[str, Any]:
             character_frequency_map[char] += 1
         else:
             character_frequency_map[char] = 1
-    sha256_hash = hashlib.sha256(raw.encode('utf-8')).hexdigest()#
+    sha256_hash = hashlib.sha256(normalised.encode('utf-8')).hexdigest()
     return {
         "value": raw,
         "length": length,
