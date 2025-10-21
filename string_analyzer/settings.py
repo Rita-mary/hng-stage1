@@ -37,7 +37,14 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+    "https://rita-mary-stringanalyzer.up.railway.app",
+    "rita-mary-stringanalyzer.up.railway.app",
+]
 
 
 # Application definition
@@ -162,11 +169,15 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+    "https://rita-mary-stringanalyzer.up.railway.app"
+]
 
-# CSRF_TRUSTED_ORIGINS = [
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+    "https://rita-mary-stringanalyzer.up.railway.app"
+]
 APPEND_SLASH = False
